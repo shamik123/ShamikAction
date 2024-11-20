@@ -1,7 +1,7 @@
 #!/bin/sh -l
 
 echo "Hello $1"
-output=$1
+$1 >> output
 "$output" >> $GITHUB_OUTPUT
 
 
