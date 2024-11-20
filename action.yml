@@ -1,6 +1,6 @@
 # action.yml
 name: 'Shamik Action'
-description: 'Greet someone and record the time'
+description: 'Execute cli commands'
 inputs:
   studio-cli-command:  
     description: 'Command to execute'
@@ -12,3 +12,4 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
  
+
