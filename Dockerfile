@@ -7,6 +7,7 @@ RUN apt-get install -y  ca-certificates curl gnupg
 COPY entrypoint.sh /entrypoint.sh
 RUN PATH=$PATH:/root/bin
 RUN INST_URL=https://distro.windriver.com/dist/wrstudio/wrstudio-cli-distro-cd/install-studio-cli.sh && curl -f $INST_URL --output inst.sh && bash inst.sh -u $INST_URL -y
+RUN complete -C studio-cli studio-cli
 
 RUN studio-cli --version
 
