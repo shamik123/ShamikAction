@@ -2,6 +2,10 @@
 FROM ubuntu:latest
 
 ENV PATH="$PATH:/root/bin"
+ENV MY_USER="shamik.saha@windriver.com"
+ENV MY_STUDIO="https://feo-demo.wrstudio.cloud/"
+ENV MY_PW="Ritchie@85"
+
 RUN apt-get update
 RUN apt-get install -y  ca-certificates curl gnupg
 
