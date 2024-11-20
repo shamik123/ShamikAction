@@ -1,21 +1,22 @@
-# Container image that runs your code
-FROM ubuntu:latest
+# Base image
+FROM ubuntu:22.04
 
-ENV PATH="$PATH:/root/bin"
-ENV MY_USER="shamik.saha@windriver.com"
-ENV MY_STUDIO="https://feo-demo.wrstudio.cloud/"
-ENV MY_PW="Ritchie@85"
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    ca-certificates \
+    curl \
+    gnupg \
+    && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update
-RUN apt-get install -y  ca-certificates curl gnupg
-
-# Copies your code file from your action repository to the filesystem path `/` of the container
+# Copy entrypoint script
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 
-RUN INST_URL=https://distro.windriver.com/dist/wrstudio/wrstudio-cli-distro-cd/install-studio-cli.sh && curl -f $INST_URL --output inst.sh && bash inst.sh -u $INST_URL -y
+# Install Studio CLI
+RUN set -e; \
+    INST_URL=https://distro.windriver.com/dist/wrstudio/wrstudio-cli-distro-cd/install-studio-cli.sh; \
+    curl -f $INST_URL --output inst.sh; \
+    bash inst.sh -u $INST_URL -y
 
-RUN studio-cli --version
-
-# Code file to execute when the docker container starts up (`entrypoint.sh`)
+# Use environment variables for secrets at runtime
 ENTRYPOINT ["/entrypoint.sh"]
-
