@@ -1,19 +1,23 @@
 #!/bin/sh -l
 
-# The argument passed to the script is a CLI command to be executed
+# Get the command from input arguments
 command="$1"
 
-# Execute the command and capture its output in the variable 'output'
+# Execute the command and capture the output
 output=$(sh -c "$command")
 
-# Echo the result to the log
+# Log the output
 echo "Command output:"
 echo "$output"
 
-# Save the output to a file
+# Save output to a file
 echo "$output" >> output
 
-# Set the output for GitHub Actions
-echo "output=$output" >> $GITHUB_ENV
-echo "::set-output name=message::$output"
+# Sanitize the output to remove or replace invalid characters
+sanitized_output=$(echo "$output" | tr ':' '_')
 
+# Set the sanitized output as an environment variable for future steps
+echo "output=$sanitized_output" >> $GITHUB_ENV
+
+# Set the output for this step using GITHUB_OUTPUT
+echo "message=$sanitized_output" >> $GITHUB_OUTPUT
