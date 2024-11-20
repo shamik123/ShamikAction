@@ -2,7 +2,8 @@
 
 echo "Hello $1"
 $1 >> output
-"$output" >> $GITHUB_OUTPUT
+echo$output
+$output >> $GITHUB_OUTPUT
 
 
 
