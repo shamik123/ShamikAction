@@ -1,5 +1,7 @@
 # Container image that runs your code
 FROM ubuntu:latest
+RUN apt-get update
+RUN apt-get install -y  ca-certificates curl gnupg
 
 # Copies your code file from your action repository to the filesystem path `/` of the container
 COPY entrypoint.sh /entrypoint.sh
