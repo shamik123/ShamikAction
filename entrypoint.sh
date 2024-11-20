@@ -3,6 +3,17 @@
 # Get the command from input arguments
 command="$1"
 
+# Ensure required environment variables are set
+if [ -z "$MY_USER" ] || [ -z "$MY_STUDIO" ] || [ -z "$MY_PW" ]; then
+  echo "Error: One or more required environment variables are not set."
+  exit 1
+fi
+
+# Export the environment variables for subsequent commands
+export MY_USER="$MY_USER"
+export MY_STUDIO="$MY_STUDIO"
+export MY_PW="$MY_PW"
+
 # Execute the command and capture the output
 output=$(sh -c "$command" 2>&1)
 
@@ -30,3 +41,7 @@ echo "message=$sanitized_output" >> $GITHUB_OUTPUT || {
   echo "Failed to write to GITHUB_OUTPUT"
   exit 1
 }
+
+
+
+
