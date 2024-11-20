@@ -5,7 +5,7 @@ inputs:
   studio-cli-command:  # id of input
     description: 'Command to execute'
     required: true
-    default: 'studio-cli --version'
+    default: ''
 outputs:
   time: # id of output
     description: 'Command output'
