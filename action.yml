@@ -2,16 +2,16 @@
 name: 'Shamik Action'
 description: 'Greet someone and record the time'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
+  studio-cli-command:  # id of input
+    description: 'Command to execute'
     required: true
-    default: 'World'
+    default: 'studio-cli --version'
 outputs:
   time: # id of output
-    description: 'The time we greeted you'
+    description: 'Command output'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.who-to-greet }}
+    - ${{ inputs.studio-cli-command }}
 
