@@ -2,16 +2,13 @@
 name: 'Shamik Action'
 description: 'Greet someone and record the time'
 inputs:
-  studio-cli-command:  # id of input
+  studio-cli-command:  
     description: 'Command to execute'
     required: true
-    default: ''
 outputs:
-  time: # id of output
+  message: 
     description: 'Command output'
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  args:
-    - ${{ inputs.studio-cli-command }}
-
+ 
