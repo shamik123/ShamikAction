@@ -21,10 +21,8 @@ output=$(sh -c "$command" 2>&1)
 echo "Command output:"
 echo "$output"
 
-# Remove any invalid characters or line breaks
-#sanitized_output=$(echo "$output" | tr -d '\r\n' | tr ':' '_' | tr -d '"')
-
-sanitized_output=$(echo "$output")
+# Sanitize output to maintain line breaks and ensure no invalid characters
+sanitized_output=$(echo "$output" | sed -e 's/"/\\"/g') # Escape double quotes
 
 # Validate that the sanitized output is not empty
 if [ -z "$sanitized_output" ]; then
@@ -32,18 +30,18 @@ if [ -z "$sanitized_output" ]; then
   exit 1
 fi
 
-# Write the sanitized output to GITHUB_ENV
-echo "output=$sanitized_output" >> $GITHUB_ENV || {
+# Write the sanitized output to GITHUB_ENV, preserving line breaks
+echo "output<<EOF" >> $GITHUB_ENV
+echo "$sanitized_output" >> $GITHUB_ENV
+echo "EOF" >> $GITHUB_ENV || {
   echo "Failed to write to GITHUB_ENV"
   exit 1
 }
 
-# Write the sanitized output to GITHUB_OUTPUT
-echo "message=$sanitized_output" >> $GITHUB_OUTPUT || {
+# Write the sanitized output to GITHUB_OUTPUT, preserving line breaks
+echo "message<<EOF" >> $GITHUB_OUTPUT
+echo "$sanitized_output" >> $GITHUB_OUTPUT
+echo "EOF" >> $GITHUB_OUTPUT || {
   echo "Failed to write to GITHUB_OUTPUT"
   exit 1
 }
-
-
-
-
