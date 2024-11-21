@@ -22,7 +22,9 @@ echo "Command output:"
 echo "$output"
 
 # Remove any invalid characters or line breaks
-sanitized_output=$(echo "$output" | tr -d '\r\n' | tr ':' '_' | tr -d '"')
+#sanitized_output=$(echo "$output" | tr -d '\r\n' | tr ':' '_' | tr -d '"')
+
+sanitized_output=$(echo "$output")
 
 # Validate that the sanitized output is not empty
 if [ -z "$sanitized_output" ]; then
