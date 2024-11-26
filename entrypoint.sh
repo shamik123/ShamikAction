@@ -22,7 +22,7 @@ echo "Command output:"
 echo "$output"
 
 # Sanitize output to maintain line breaks and ensure no invalid characters
-sanitized_output=$(echo "$output" | sed -e 's/"/\\"/g') # Escape double quotes
+# sanitized_output=$(echo "$output" | sed -e 's/"/\\"/g') # Escape double quotes
 
 # Validate that the sanitized output is not empty
 if [ -z "$sanitized_output" ]; then
